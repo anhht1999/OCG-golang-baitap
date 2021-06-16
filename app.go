@@ -70,13 +70,13 @@ func main() {
 	}
 
 	fmt.Println("______2.3 Tìm 5 nghề có nhiều người làm nhất, đếm từ cao xuống thấp________")
-	Top5JobsByNumer := Top5JobsByNumer(peopleByJob)[:5]
+	Top5JobsByNumer := Top5JobsByNumer(peopleByJob)
 	for _, index := range Top5JobsByNumer {
 		fmt.Printf("%s -> %d \n",index,peopleByJob[index])
 	}
 
 	fmt.Println("______2.4 Tìm 5 thành phố có nhiều người trong danh sách ở nhất, đếm từ cao xuống thấp________")	
-	Top5CitiesByNumber := Top5CitiesByNumber(peopleByCity)[:5]
+	Top5CitiesByNumber := Top5CitiesByNumber(peopleByCity)
 	for _, index := range Top5CitiesByNumber {
 		fmt.Printf("%s - %d \n",index,len(index))
 	}

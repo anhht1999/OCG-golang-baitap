@@ -8,7 +8,7 @@ import (
 	"strings"
 )
 
-type kv struct {
+type element struct {
     Key   string
     Value int
 }
@@ -32,22 +32,18 @@ func GroupPeopleByJob(p []Person) (result map[string]int) {
 
 //Tìm 5 nghề có nhiều người làm nhất, đếm từ cao xuống thấp
 func Top5JobsByNumer(values map[string]int) []string {
-    type kv struct {
-        Key   string
-        Value int
-    }
-    var ss []kv
+    var arr []element
     for k, v := range values {
-        ss = append(ss, kv{k, v})
+        arr = append(arr, element{k, v})
     }
-    sort.Slice(ss, func(i, j int) bool {
-        return ss[i].Value > ss[j].Value
+    sort.Slice(arr, func(i, j int) bool {
+        return arr[i].Value > arr[j].Value
     })
     ranked := make([]string, len(values))
-    for i, kv := range ss {
-        ranked[i] = kv.Key
+    for i, element := range arr {
+        ranked[i] = element.Key
     }
-    return ranked
+    return ranked[:5]
 }
 //Tìm 5 thành phố có nhiều người trong danh sách ở nhất, đếm từ cao xuống thấp
 func Top5CitiesByNumber(p map[string][]Person) []string {
@@ -56,18 +52,18 @@ func Top5CitiesByNumber(p map[string][]Person) []string {
     for k,v:= range p {
         result[k]= len(v)
     }
-    var ss []kv
+    var arr []element
     for k, v := range result {
-        ss = append(ss, kv{k, v})
+        arr = append(arr, element{k, v})
     }
-    sort.Slice(ss, func(i, j int) bool {
-        return ss[i].Value > ss[j].Value
+    sort.Slice(arr, func(i, j int) bool {
+        return arr[i].Value > arr[j].Value
     })
     ranked := make([]string, len(result))
-    for i, kv := range ss {
-        ranked[i] = kv.Key
+    for i, element := range arr {
+        ranked[i] = element.Key
     }
-    return ranked
+    return ranked[:5]
 }
 
 //Trong mỗi thành phố, hãy tìm ra nghề nào được làm nhiều nhất
@@ -118,19 +114,21 @@ func SalaryEachCity(p []Person) (result map[string]int) {
 	}
 	return result
 }
-func FiveCitiesHasTopAverageSalary(number map[string]int, salary map[string]int) (result []kv)  {
+
+
+func FiveCitiesHasTopAverageSalary(number map[string]int, salary map[string]int) (result []element)  {
     tmpMap := make(map[string]int)
 	for key := range number {
 		tmpMap[key] = salary[key] / number[key]
 	}
-	var ss []kv
+	var arr []element
 	for key, value := range tmpMap {
-		ss = append(ss, kv{key, value})
+		arr = append(arr, element{key, value})
 	}
-	sort.Slice(ss, func(i, j int) bool {
-		return ss[i].Value > ss[j].Value
+	sort.Slice(arr, func(i, j int) bool {
+		return arr[i].Value > arr[j].Value
 	})
-	result = ss[0:5]
+	result = arr[0:5]
 	return result
 }
 
@@ -157,19 +155,19 @@ func SalaryDeveloperByCity(p []Person) (result map[string]int) {
 	return result
 }
 
-func FiveCitiesHasTopSalaryForDeveloper(number map[string]int, salary map[string]int) (result []kv) {
+func FiveCitiesHasTopSalaryForDeveloper(number map[string]int, salary map[string]int) (result []element) {
 	tmpMap := make(map[string]int)
 	for key := range number {
 		tmpMap[key] = salary[key] / number[key]
 	}
-	var ss []kv
+	var arr []element
 	for key, value := range tmpMap {
-		ss = append(ss, kv{key, value})
+		arr = append(arr, element{key, value})
 	}
-	sort.Slice(ss, func(i, j int) bool {
-		return ss[i].Value > ss[j].Value
+	sort.Slice(arr, func(i, j int) bool {
+		return arr[i].Value > arr[j].Value
 	})
-	result = ss
+	result = arr
 	return result
 }
 
